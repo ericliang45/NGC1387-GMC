@@ -1,0 +1,153 @@
+Code summary
+to be used for reproducing results of N1387 GMC paper (Liang+) 
+
+Github is only for code and this document. Data products are uploaded to WISDOM OneDrive (https://wisdom-project.org/data/). Figures are already in the paper (and in arXiv source files).
+
+document format and example block:
+# title, task description
+## scripts/method/input
+### products/outputs
+
+
+
+# Data reduction, from ALMA raw data to line cubes
+## input ALMA raw data from ALMA data archive
+## calibration, scriptForPI.py (come with the data from ALMA archive, set SPACESAVING=2, usedimpipe=False to save space, otherwise, on the order of 1 TB)
+## imaging, scriptForImaging_ngc1387.py also including quantity calculation quoted in the paper (e.g. baselines)
+### data cube: NGC1387_combine_clean5.image.fits, NGC1387_combine_clean5.image.pbcor.fits, NGC1387_combine_clean5.image.pbcor-VEL.fits
+### mask NGC1387_combine_clean5.mask.fits (used during cleaning), NGC1387_combine_clean9.mask.fits (used as CPROPStoo starting point, manually refined from NGC1387_combine_clean5.mask.fits)
+
+# Total flux (from extrapolation to correct for finite cleaning)
+## scriptForImaging_ngc1387.py and total_flux.py
+### values quoted in paper
+
+# continuum and measurements
+## scriptForImaging_ngc1387.py
+### continuum image: NGC1387_continuum_2.image.pbcor.fits
+
+
+
+# CPROPStoo cloud identification and measurements
+## input data cube NGC1387_combine_clean5.image.pbcor-VEL.fits, galaxy emission mask NGC1387_combine_clean9.mask.fits, and galaxy metadata /data/NGC1387_galpar.dat
+## NGC1387.pro (steps from the beginning up until and including "PROPERTIES") calling package cpropstoo_ljliu/*
+### output in /measurements/ and /output/
+
+# cloud requirements final check
+## final_catalog_check.py
+### output boolean lists of clouds (resolved/unresolved, one list for each) whether each cloud passes all requirements stated in the paper or not: measurements/NGC1387-*resolved_bool.txt
+### cloud number change (resolved, unresolved, total): 1164, 428, 1592 -> 1079, 206, 1285
+
+
+
+# table/plots/analysis
+
+# CO moment maps, synthetic spectrum, continuum
+## input data cubes (pbcorr and non-pbcorr)
+## display_galaxy.py and pymakeplots/pymakeplots.py (adapted from the master version of Tim Davis)
+### moment maps in PDF and FITS, spectrum in PDF and csv, continuum map in PDF and FITS
+
+# Mass surface density radial profile
+## toomre.py ("Sigma radial profile" section)
+### density_profile.pdf (part of Fig 2)
+
+
+# galaxy overview
+## optical image (large) from CGS survey (PDF extract from the overview paper Ho+11 Figure 7.203)
+## optical image (centre) from HST, data/hst_10217_09_acs_wfc_f475w_sci.fits
+## CO contour from NGC1387_mom0.fits produced in the step above
+## unsharp masking adopted
+## display_galaxy.py and manually assembled.
+### hst.pdf
+
+
+# GMC figure
+## NGC1387.pro calling cprops_plot/cpropstoo_gmc_figure.pro
+### NGC1387_gmc_figure.eps (and PDF; same below for .eps)
+
+# GMC Table
+## gmc_table.py
+## input kinematic calculations, see below '# cloud velocity gradient'
+## input CPROPStoo properties from measurements/NGC1387_CO21_cube_2kms_props_clfriendtoo.idl
+### output csv file (table_full.csv) and short latex version for the paper (table_short.tex)
+
+
+# Property PDF histograms (size, mass, density, and linewidth)
+## NGC1387.pro calling cpropstoo_variation_r.pro, ks.py for KS tests
+### values quoted in Section 3.1
+### figures:
+NGC1387-histogram-Mlum.pdf
+NGC1387-histogram-Rc.pdf
+NGC1387-histogram-sigmaGas.pdf
+NGC1387-histogram-vrms.pdf
+NGC1387-histogram-alphavir.pdf
+
+# Property PDF comparisons with N4526 and N4429
+## input N4526 and N4429 GMC tables from supplemental documents in their online publications
+## gradient.py
+### values quoted in the paper
+
+
+# mass spectrum
+## mass_spectrum.py
+### output: mass_spectrum.pdf, and values quoted in the paper
+
+# Larson relations
+## NGC1387.pro calling cprops_plot/cpropstoo_larson_relation.pro
+## need to manually adjust (1) pick_ind variable in cpropstoo_larson_relation.pro, and (2) "no_fitting" flag in NGC1387.pro (whether or not only used for plotting with stored parameters of all clouds).
+### NGC1387_larson_relation_obs.eps
+
+# virial parameter
+## NGC1387.pro calling cprops_plot/cpropstoo_alpha_figure.pro
+### NGC1387_alpha_figure_obs.eps
+
+
+# cloud velocity gradient
+
+# MGE & KinMS modelling (from Pandora D.)
+## makeVelField_NGC1387.py, use the mass model (data/NGC1387_mge_gauss.csv and data/NGC1387_galpar.dat) to get LoS circular velocity
+### data/NGC1387_rotation_vfield_2kms.fits, data/NGC1387_velocity_curve.dat
+
+# calculate cloud velocity gradient, both model and observed values. 
+## NGC1387.pro calling cpropstoo_angmom_comparison.pro
+### NGC1387_angmom_comparison.eps NGC1387_angmom_comparison.csv NGC1387_angmom_comparison.fits
+
+# plot cloud angular momentum vectors on top of circular velocity field
+## NGC1387.pro calling cpropstoo_gmc_vfield.pro 
+## input NGC1387_angmom_comparison.csv
+### output: output/NGC1387_gmc_vfield.eps
+
+# plot amplitude and orientation comparisons (both whole sample and subsamples), and tidal radius
+## rotation.py
+### prograde fractions quoted in paper
+### rotation.pdf, tidal_radius_ratio.pdf
+### rotation-*.pdf for subsamples
+
+## "dsigma2" experiment, i.e. sigma_obs,los ^2 - sigma_gs,los ^2
+## NGC1387.pro calling compare_sigma.pro to calculate (dsigma^2)_model
+### NGC1387_sig_diff.csv
+## dsigma2.py
+### sigma_compare-distance.pdf, *-mass.pdf, and *-radius.pdf for the main figure (three different colour codings)
+### sigma_compare-sub-*.pdf for subsamples
+
+
+# Toomre parameter, gas mass fraction, and collision model
+## toomre.py
+### density_profile.pdf, toomre.pdf
+
+
+# Property radial profile
+## gradient.py
+### gradient.pdf
+
+
+# Metallicity from MUSE data
+## muse_1387.py
+### metallicity value quoted in the paper
+
+
+# Appendix on varying cprops parameters
+## run the following steps again with different S_min and T_min (by switching the "number" blocks in NGC1387.pro): 
+"LOCALMAX" to "PROPERTIES" (bootstrap=100) 
+## run final_catalog_check.py for each
+## "OUT_GMC_APP", "OUT_ALPHA_APP", "OUT_LARSON1_APP" with NGC1387.pro (i.e. cpropstoo_gmc_figure_app.pro, cpropstoo_alpha_figure_app.pro, cpropstoo_larson_relation_app.pro)
+### output figures manually assembled
