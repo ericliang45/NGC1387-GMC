@@ -1,0 +1,25 @@
+; The basic properties of galaxy
+; from Pandora's N1387 paper Mar 2024
+; originally (now obsolete) from Hope's email Apr 26 2021
+;pa - the position angle of major axis of galaxy in [degree], from Pandora
+243.9
+;inc - the inclination angle of molecular gas disk in [degree], from Pandora
+13.6
+;ra_c - the RA of galaxy center; 0.04" spaxel size, ; 03h36m57.06s -35d30m23.9s from "2MASS Extended objects. Final release" via NED, previously used ; 03:36:57.03 -35:30:23.69 from GAIA DR2 via Simbad
+; 03:36:57.034 -35:30:23.68 from central point source of continuum emission, currently in use 
+; 03h36m57s.06, −35°30′23.9" (J2000.0), −0.15, −0.19, "03h36m57s.05 pm 0.002, −35°30′23.71" pm 0.02" from Pandora 3D modelling
+03h36m57.0333s
+;dec_c - the DEC of galaxy center
+-35d30m23.6790s
+;dist_pc - distance of galaxy in [pc]; 19.3 pm 0.8 Mpc from Blakeslee+ 2009 SBF measurement of Fornax & Virgo galaxies
+19.3e6
+;vsys - systematic velocity of galaxy in [km/s]; (in use) from display_galaxy.py calling pymakeplots.py (BARYCENT, radio); (Pandora uses LSRK frame)
+1286.4
+;alpha_CO(2-1)
+5.62
+; mass-to-light ratio, from Pandora
+0.97
+; SMBH mass, dex, from Pandora
+8.270
+; redshift (helio; NED front page of N1387), pm 4.00e-5
+0.004343

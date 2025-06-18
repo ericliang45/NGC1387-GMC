@@ -24,7 +24,8 @@ document format and example block:
 # continuum and measurements
 ## scriptForImaging_ngc1387.py
 ### continuum image: NGC1387_continuum_2.image.pbcor.fits
-
+## display_galaxy.py
+### App A statistics of the secondary source
 
 
 # CPROPStoo cloud identification and measurements
@@ -72,7 +73,8 @@ document format and example block:
 
 
 # Property PDF histograms (size, mass, density, and linewidth)
-## NGC1387.pro calling cpropstoo_variation_r.pro, ks.py for KS tests
+## NGC1387.pro calling cpropstoo_variation_r.pro for plotting
+## ks.py for KS tests
 ### values quoted in Section 3.1
 ### figures:
 NGC1387-histogram-Mlum.pdf
@@ -81,7 +83,7 @@ NGC1387-histogram-sigmaGas.pdf
 NGC1387-histogram-vrms.pdf
 NGC1387-histogram-alphavir.pdf
 
-# Property PDF comparisons with N4526 and N4429
+# Property Distribution comparisons with N4526 and N4429
 ## input N4526 and N4429 GMC tables from supplemental documents in their online publications
 ## gradient.py
 ### values quoted in the paper

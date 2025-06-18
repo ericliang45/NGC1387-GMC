@@ -583,7 +583,7 @@ print rms *1000
 # clean 1,2,3, test run for velocity range under bary frame (#1 & #2 too large cell size, causing task failure)
 # emission from 1208 km/s to 1362 km/s. Choose range 1185 km/s to 1385 km/s
 # 4 forgot to change niter from zero
-# 5, beam same as dirty13, line-free channels rms=1.10636930437, very similar to dirty13, robust = 1.0, good mask, threshold = '1.5mJy', pbmask = 0.2, sidelobethreshold = 2.0, noisethreshold = 4.25, minbeamfrac =  0.3, lownoisethreshold = 1.2
+# 5, beam same as dirty13, line-free channels rms=1.10636930437, very similar to dirty13, robust = 1.0, good mask, threshold = '1.5mJy',pbmask = 0.2, sidelobethreshold = 2.0, noisethreshold = 4.25, minbeamfrac =  0.3, lownoisethreshold = 1.2
 # 6, robust = 1.5, initial masks too small (actually it's normal), aborted halfway
 # 7, robust = 1.5, beam same as dirty10, change lownoisethreshold = 1.0, manual mask for 0-40 channels
 # 8, robust = 1.0, niter=10, to construct a mask, forgot to turn down automasking, aborted
@@ -670,6 +670,8 @@ exportfits(
 
 # ia.fromfits(outfile = , infile=)
 
+
+
 immoments('NGC1387_combine_dirty.image',
     moments =[0],
     axis='spectral',
@@ -699,7 +701,7 @@ res = imfit(
 
 
 
-''' For Jacob's continuum task Elford+2024 '''
+''' For Jacob's continuum task '''
 
 myMS = 'uid___A002_Xc44eb5_X2e5d.ms.split.cal.split2'
 contSPW_X2e5d_low = '0:0~70;90~127,3:0~1700;2200~3839' # X2e5d
@@ -837,178 +839,3 @@ exportfits(
     )
 
 ''' For Jacob's continuum task (end)'''
-
-
-''' to investigate flux variation with cleaning depth '''
-
-# RMS = 1.1 mJy/beam
-
-rootfile = '/Users/liangf/work_pub/data/cube_flux_depth/10/NGC1387_combine_clean10m'
-tclean( vis = '/Users/liangf/work_pub/data/NGC1387_combine.ms.contsub',
-        mask='/Users/liangf/work_pub/data/NGC1387_combine_clean9.mask', usemask = 'user',
-        imagename = rootfile,
-        cell=['0.04arcsec'], imsize=[750,750], gridder = 'mosaic', pbcor = True, restoringbeam = '',
-        specmode = 'cube', outframe = 'bary', restfreq = '230.538GHz', start = '1185km/s', width = '2km/s', nchan = 100,
-        weighting = 'briggs', robust = 1.0, # uvtaper=uvtaper,
-        deconvolver = 'hogbom', niter = 10000000, scales=[0,4,12], # pixels, equivalent to point source / zero and 1, 3 times the beam.
-        threshold = '1.0mJy', interactive = False,)
-exportfits(imagename=rootfile+'.image.pbcor', fitsimage=rootfile+'.image.pbcor.fits', dropstokes=True)
-
-rootfile = '/Users/liangf/work_pub/data/cube_flux_depth/15/NGC1387_combine_clean15m'
-tclean( vis = '/Users/liangf/work_pub/data/NGC1387_combine.ms.contsub',
-        mask='/Users/liangf/work_pub/data/NGC1387_combine_clean9.mask', usemask = 'user',
-        imagename = rootfile,
-        cell=['0.04arcsec'], imsize=[750,750], gridder = 'mosaic', pbcor = True, restoringbeam = '',
-        specmode = 'cube', outframe = 'bary', restfreq = '230.538GHz', start = '1185km/s', width = '2km/s', nchan = 100,
-        weighting = 'briggs', robust = 1.0, # uvtaper=uvtaper,
-        deconvolver = 'hogbom', niter = 10000000, scales=[0,4,12], # pixels, equivalent to point source / zero and 1, 3 times the beam.
-        threshold = '1.5mJy', interactive = False,)
-exportfits(imagename=rootfile+'.image.pbcor', fitsimage=rootfile+'.image.pbcor.fits', dropstokes=True)
-
-rootfile = '/Users/liangf/work_pub/data/cube_flux_depth/NGC1387_combine_clean20m'
-tclean( vis = '/Users/liangf/work_pub/data/NGC1387_combine.ms.contsub',
-        mask='/Users/liangf/work_pub/data/NGC1387_combine_clean9.mask', usemask = 'user',
-        imagename = rootfile,
-        cell=['0.04arcsec'], imsize=[750,750], gridder = 'mosaic', pbcor = True, restoringbeam = '',
-        specmode = 'cube', outframe = 'bary', restfreq = '230.538GHz', start = '1185km/s', width = '2km/s', nchan = 100,
-        weighting = 'briggs', robust = 1.0, # uvtaper=uvtaper,
-        deconvolver = 'hogbom', niter = 10000000, scales=[0,4,12], # pixels, equivalent to point source / zero and 1, 3 times the beam.
-        threshold = '2.0mJy', interactive = False,)
-exportfits(imagename=rootfile+'.image.pbcor', fitsimage=rootfile+'.image.pbcor.fits', dropstokes=True)
-
-rootfile = '/Users/liangf/work_pub/data/cube_flux_depth/NGC1387_combine_clean30m'
-tclean( vis = '/Users/liangf/work_pub/data/NGC1387_combine.ms.contsub',
-        mask='/Users/liangf/work_pub/data/NGC1387_combine_clean9.mask', usemask = 'user',
-        imagename = rootfile,
-        cell=['0.04arcsec'], imsize=[750,750], gridder = 'mosaic', pbcor = True, restoringbeam = '',
-        specmode = 'cube', outframe = 'bary', restfreq = '230.538GHz', start = '1185km/s', width = '2km/s', nchan = 100,
-        weighting = 'briggs', robust = 1.0, # uvtaper=uvtaper,
-        deconvolver = 'hogbom', niter = 10000000, scales=[0,4,12], # pixels, equivalent to point source / zero and 1, 3 times the beam.
-        threshold = '3.0mJy', interactive = False,)
-exportfits(imagename=rootfile+'.image.pbcor', fitsimage=rootfile+'.image.pbcor.fits', dropstokes=True)
-
-
-
-
-''' changing to mask5 '''
-
-rootfile = '/Users/liangf/work_pub/data/cube_flux_depth-mask5/10/NGC1387_combine_clean10m'
-tclean( vis = '/Users/liangf/work_pub/data/NGC1387_combine.ms.contsub',
-        mask='/Users/liangf/work_pub/data/NGC1387_combine_clean5.mask', usemask = 'user',
-        imagename = rootfile,
-        cell=['0.04arcsec'], imsize=[750,750], gridder = 'mosaic', pbcor = True, restoringbeam = '',
-        specmode = 'cube', outframe = 'bary', restfreq = '230.538GHz', start = '1185km/s', width = '2km/s', nchan = 100,
-        weighting = 'briggs', robust = 1.0, # uvtaper=uvtaper,
-        deconvolver = 'hogbom', niter = 10000000, scales=[0,4,12], # pixels, equivalent to point source / zero and 1, 3 times the beam.
-        threshold = '1.0mJy', interactive = False,)
-exportfits(imagename=rootfile+'.image.pbcor', fitsimage=rootfile+'.image.pbcor.fits', dropstokes=True)
-exportfits(imagename=rootfile+'.residual', fitsimage=rootfile+'.residual.fits', dropstokes=True)
-exportfits(imagename=rootfile+'.model', fitsimage=rootfile+'.model.fits', dropstokes=True)
-# exportfits(imagename=rootfile+'.pb', fitsimage=rootfile+'.pb.fits', dropstokes=True)
-
-# to reproduce the cube in use
-rootfile = '/Users/liangf/work_pub/data/cube_flux_depth-mask5/15/NGC1387_combine_clean_paper'
-rootfile2 = '/Users/liangf/work_pub/data/cube_flux_depth-mask5/15/NGC1387_combine_clean15m'
-tclean( vis = '/Users/liangf/work_pub/data/NGC1387_combine.ms.contsub',
-        mask='/Users/liangf/work_pub/data/NGC1387_combine_clean5.mask', usemask = 'user',
-        imagename = rootfile,
-        cell=['0.04arcsec'], imsize=[750,750], gridder = 'mosaic', pbcor = True, restoringbeam = '',
-        specmode = 'cube', outframe = 'bary', restfreq = '230.538GHz', start = '1185km/s', width = '2km/s', nchan = 100,
-        weighting = 'briggs', robust = 1.0, # uvtaper=uvtaper,
-        deconvolver = 'hogbom', niter = 10000000, scales=[0,4,12], # pixels, equivalent to point source / zero and 1, 3 times the beam.
-        threshold = '1.5mJy', interactive = False,)
-exportfits(imagename=rootfile+'.image.pbcor', fitsimage=rootfile2+'.image.pbcor.fits', dropstokes=True)
-exportfits(imagename=rootfile+'.residual', fitsimage=rootfile2+'.residual.fits', dropstokes=True)
-exportfits(imagename=rootfile+'.model', fitsimage=rootfile2+'.model.fits', dropstokes=True)
-
-
-rootfile = '/Users/liangf/work_pub/data/cube_flux_depth-mask5/20/NGC1387_combine_clean20m'
-tclean( vis = '/Users/liangf/work_pub/data/NGC1387_combine.ms.contsub',
-        mask='/Users/liangf/work_pub/data/NGC1387_combine_clean5.mask', usemask = 'user',
-        imagename = rootfile,
-        cell=['0.04arcsec'], imsize=[750,750], gridder = 'mosaic', pbcor = True, restoringbeam = '',
-        specmode = 'cube', outframe = 'bary', restfreq = '230.538GHz', start = '1185km/s', width = '2km/s', nchan = 100,
-        weighting = 'briggs', robust = 1.0, # uvtaper=uvtaper,
-        deconvolver = 'hogbom', niter = 10000000, scales=[0,4,12], # pixels, equivalent to point source / zero and 1, 3 times the beam.
-        threshold = '2.0mJy', interactive = False,)
-exportfits(imagename=rootfile+'.image.pbcor', fitsimage=rootfile+'.image.pbcor.fits', dropstokes=True)
-exportfits(imagename=rootfile+'.residual', fitsimage=rootfile+'.residual.fits', dropstokes=True)
-exportfits(imagename=rootfile+'.model', fitsimage=rootfile+'.model.fits', dropstokes=True)
-
-rootfile = '/Users/liangf/work_pub/data/cube_flux_depth-mask5/30/NGC1387_combine_clean30m'
-tclean( vis = '/Users/liangf/work_pub/data/NGC1387_combine.ms.contsub',
-        mask='/Users/liangf/work_pub/data/NGC1387_combine_clean5.mask', usemask = 'user',
-        imagename = rootfile,
-        cell=['0.04arcsec'], imsize=[750,750], gridder = 'mosaic', pbcor = True, restoringbeam = '',
-        specmode = 'cube', outframe = 'bary', restfreq = '230.538GHz', start = '1185km/s', width = '2km/s', nchan = 100,
-        weighting = 'briggs', robust = 1.0, # uvtaper=uvtaper,
-        deconvolver = 'hogbom', niter = 10000000, scales=[0,4,12], # pixels, equivalent to point source / zero and 1, 3 times the beam.
-        threshold = '3.0mJy', interactive = False,)
-exportfits(imagename=rootfile+'.image.pbcor', fitsimage=rootfile+'.image.pbcor.fits', dropstokes=True)
-exportfits(imagename=rootfile+'.residual', fitsimage=rootfile+'.residual.fits', dropstokes=True)
-exportfits(imagename=rootfile+'.model', fitsimage=rootfile+'.model.fits', dropstokes=True)
-
-
-
-''' mask5, low-resolution cube  robust = 2.0, uvtaper='600klambda' '''
-
-rootfile = '/Users/liangf/work_pub/data/cube_flux_depth-mask5-low_res/10/NGC1387_combine_clean10m'
-tclean( vis = '/Users/liangf/work_pub/data/NGC1387_combine.ms.contsub',
-        mask='/Users/liangf/work_pub/data/NGC1387_combine_clean5.mask', usemask = 'user',
-        imagename = rootfile,
-        cell=['0.04arcsec'], imsize=[750,750], gridder = 'mosaic', pbcor = True, restoringbeam = '',
-        specmode = 'cube', outframe = 'bary', restfreq = '230.538GHz', start = '1185km/s', width = '2km/s', nchan = 100,
-        weighting = 'briggs', robust = 2.0, uvtaper='600klambda',
-        deconvolver = 'hogbom', niter = 10000000, scales=[0,4,12], # pixels, equivalent to point source / zero and 1, 3 times the beam.
-        threshold = '1.0mJy', interactive = False,)
-exportfits(imagename=rootfile+'.image.pbcor', fitsimage=rootfile+'.image.pbcor.fits', dropstokes=True)
-exportfits(imagename=rootfile+'.residual', fitsimage=rootfile+'.residual.fits', dropstokes=True)
-exportfits(imagename=rootfile+'.model', fitsimage=rootfile+'.model.fits', dropstokes=True)
-
-rootfile = '/Users/liangf/work_pub/data/cube_flux_depth-mask5-low_res/15/NGC1387_combine_clean15m'
-tclean( vis = '/Users/liangf/work_pub/data/NGC1387_combine.ms.contsub',
-        mask='/Users/liangf/work_pub/data/NGC1387_combine_clean5.mask', usemask = 'user',
-        imagename = rootfile,
-        cell=['0.04arcsec'], imsize=[750,750], gridder = 'mosaic', pbcor = True, restoringbeam = '',
-        specmode = 'cube', outframe = 'bary', restfreq = '230.538GHz', start = '1185km/s', width = '2km/s', nchan = 100,
-        weighting = 'briggs', robust = 2.0, uvtaper='600klambda',
-        deconvolver = 'hogbom', niter = 10000000, scales=[0,4,12], # pixels, equivalent to point source / zero and 1, 3 times the beam.
-        threshold = '1.5mJy', interactive = False,)
-exportfits(imagename=rootfile+'.image.pbcor', fitsimage=rootfile+'.image.pbcor.fits', dropstokes=True)
-exportfits(imagename=rootfile+'.residual', fitsimage=rootfile+'.residual.fits', dropstokes=True)
-exportfits(imagename=rootfile+'.model', fitsimage=rootfile+'.model.fits', dropstokes=True)
-
-
-rootfile = '/Users/liangf/work_pub/data/cube_flux_depth-mask5-low_res/20/NGC1387_combine_clean20m'
-tclean( vis = '/Users/liangf/work_pub/data/NGC1387_combine.ms.contsub',
-        mask='/Users/liangf/work_pub/data/NGC1387_combine_clean5.mask', usemask = 'user',
-        imagename = rootfile,
-        cell=['0.04arcsec'], imsize=[750,750], gridder = 'mosaic', pbcor = True, restoringbeam = '',
-        specmode = 'cube', outframe = 'bary', restfreq = '230.538GHz', start = '1185km/s', width = '2km/s', nchan = 100,
-        weighting = 'briggs', robust = 2.0, uvtaper='600klambda',
-        deconvolver = 'hogbom', niter = 10000000, scales=[0,4,12], # pixels, equivalent to point source / zero and 1, 3 times the beam.
-        threshold = '2.0mJy', interactive = False,)
-exportfits(imagename=rootfile+'.image.pbcor', fitsimage=rootfile+'.image.pbcor.fits', dropstokes=True)
-exportfits(imagename=rootfile+'.residual', fitsimage=rootfile+'.residual.fits', dropstokes=True)
-exportfits(imagename=rootfile+'.model', fitsimage=rootfile+'.model.fits', dropstokes=True)
-
-rootfile = '/Users/liangf/work_pub/data/cube_flux_depth-mask5-low_res/30/NGC1387_combine_clean30m'
-tclean( vis = '/Users/liangf/work_pub/data/NGC1387_combine.ms.contsub',
-        mask='/Users/liangf/work_pub/data/NGC1387_combine_clean5.mask', usemask = 'user',
-        imagename = rootfile,
-        cell=['0.04arcsec'], imsize=[750,750], gridder = 'mosaic', pbcor = True, restoringbeam = '',
-        specmode = 'cube', outframe = 'bary', restfreq = '230.538GHz', start = '1185km/s', width = '2km/s', nchan = 100,
-        weighting = 'briggs', robust = 2.0, uvtaper='600klambda',
-        deconvolver = 'hogbom', niter = 10000000, scales=[0,4,12], # pixels, equivalent to point source / zero and 1, 3 times the beam.
-        threshold = '3.0mJy', interactive = False,)
-exportfits(imagename=rootfile+'.image.pbcor', fitsimage=rootfile+'.image.pbcor.fits', dropstokes=True)
-exportfits(imagename=rootfile+'.residual', fitsimage=rootfile+'.residual.fits', dropstokes=True)
-exportfits(imagename=rootfile+'.model', fitsimage=rootfile+'.model.fits', dropstokes=True)
-
-
-rootfile = '/Users/liangf/work_pub/data/NGC1387_combine_clean5'
-exportfits(imagename=rootfile+'.pb', fitsimage=rootfile+'.pb.fits', dropstokes=True)
-
-''' to investigate flux variation with cleaning depth end '''
-
-
