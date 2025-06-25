@@ -667,7 +667,7 @@ PRO NGC1387, steps = steps, asgn_mode=asgn_mode $
             , ring_pc = [inner, outer]  $
             , outer_pc = [outer, 1e6]  $
             ,  checkfile_re = './measurements/NGC1387-resolved_bool.txt' $
-              , /nofitting $
+              ; , /nofitting $
             , outfile='./output'+number+'/NGC1387_larson_relation_obs.eps' $
               , alpha_co = alpha
   endif  ; END STEP "OUT_LARSON"

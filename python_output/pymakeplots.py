@@ -1726,7 +1726,7 @@ class pymakeplots:
        t = Table([v1,spec1],names=('Velocity (km/s)', descrip))   
        t.write(filename+"_spec.csv", format='csv',overwrite=True)
        
-       t1 = Table([vmask,specmask, errors],names=('Velocity (km/s)', descrip, 'Error of flux'))   
+       t1 = Table([vmask,specmask, errors],names=('Velocity (km/s)', descrip, 'Error of flux (Jy)'))   
        t1.write(filename+"_specmask.csv", format='csv',overwrite=True)
 
 

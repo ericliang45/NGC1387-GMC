@@ -81,7 +81,7 @@ endif
   mad_to_sig = 1.0 ; 1.4826
   R = props.radrms_extrap_deconv
   R = R[resolve_ind]
-  d_R = props.radrms_extrap_deconv_uc
+  d_R = props.radrms_extrap_deconv_uc ; / 4.0
   d_R = d_R[resolve_ind] * R * mad_to_sig  ; mad * 1.4826 = sigma
   logR=alog10(R)
   d_logR=1./alog(10.)*d_R/R
@@ -95,7 +95,7 @@ endif
 
   Lum = props.lum_extrap
   Lum = Lum[resolve_ind]
-  d_Lum=props.lum_extrap_uc
+  d_Lum=props.lum_extrap_uc ; / 4.0
   d_Lum = d_Lum[resolve_ind] * Lum * mad_to_sig 
   logLum=alog10(Lum)
   d_logLum=1./alog(10.)*d_Lum/Lum
@@ -106,36 +106,36 @@ endif
     vrmsmode = "obs"
     vrms = props.vrms_extrap_deconv
     vrms = vrms[resolve_ind]
-    d_vrms = props.vrms_extrap_deconv_uc
+    d_vrms = props.vrms_extrap_deconv_uc ; / 4.0
     d_vrms = d_vrms[resolve_ind] * vrms * mad_to_sig 
     ; vrms=vrms[resolve_ind]
     ; d_vrms=d_vrms[resolve_ind]
-  endif else begin
-    if vrmsmode eq "turb"  then begin
-  	vrms=vturb[resolve_ind]
-  	d_vrms=d_vturb[resolve_ind]
-    endif 
-    if vrmsmode eq "eff"  then begin
-	  vrms_obs = vrms[resolve_ind]
-	  vrms_shift = vturb[resolve_ind]
-	  dvrms_obs = d_vrms[resolve_ind]
-	  dvrms_shift = d_vturb[resolve_ind]
+  endif ; else begin
+  ;   if vrmsmode eq "turb"  then begin
+  ; 	vrms=vturb[resolve_ind]
+  ; 	d_vrms=d_vturb[resolve_ind]
+  ;   endif 
+  ;   if vrmsmode eq "eff"  then begin
+	;   vrms_obs = vrms[resolve_ind]
+	;   vrms_shift = vturb[resolve_ind]
+	;   dvrms_obs = d_vrms[resolve_ind]
+	;   dvrms_shift = d_vturb[resolve_ind]
 
-	  readcol, shear_table, ID, Omega, T, vrms_eff, dvrms_eff, $
-          vrms_pred, vir_eff, OmegaStd, Tstd, F='I,f,f,f,f,f,f,f,f'
-      vrms=vrms_eff[resolve_ind]
+	;   readcol, shear_table, ID, Omega, T, vrms_eff, dvrms_eff, $
+  ;         vrms_pred, vir_eff, OmegaStd, Tstd, F='I,f,f,f,f,f,f,f,f'
+  ;     vrms=vrms_eff[resolve_ind]
 
-	  if n_elements(inc) eq 0 then begin
-		  print, 'PLEASE GIVE INC ANGLE FOR EFFECTIVE VELOCITY DISPERSION'
-		  return
-	  endif
+	;   if n_elements(inc) eq 0 then begin
+	; 	  print, 'PLEASE GIVE INC ANGLE FOR EFFECTIVE VELOCITY DISPERSION'
+	; 	  return
+	;   endif
 
-	  d_vrms2 = sqrt((2.*vrms_shift)^2.*(1.-2/(3.*sin(inc*!dtor)^2.))^2 $
-		  *dvrms_shift^2.+ (2.*vrms_obs)^2.*(2/(3.*sin(inc*!dtor)^2.))^2. $
-		  *dvrms_obs^2.)
-	  d_vrms = 1/2.*(vrms^2.)^(-0.5)*d_vrms2
-    endif
-  endelse
+	;   d_vrms2 = sqrt((2.*vrms_shift)^2.*(1.-2/(3.*sin(inc*!dtor)^2.))^2 $
+	; 	  *dvrms_shift^2.+ (2.*vrms_obs)^2.*(2/(3.*sin(inc*!dtor)^2.))^2. $
+	; 	  *dvrms_obs^2.)
+	;   d_vrms = 1/2.*(vrms^2.)^(-0.5)*d_vrms2
+  ;   endif
+  ; endelse
 
   logvrms=alog10(vrms)
   d_logvrms=1./alog(10.)*d_vrms/vrms
@@ -202,7 +202,8 @@ endif
 
 endif 
 
-  ; sixlin, logR, logvrms, a0, siga0, b0, sigb0
+  sixlin, logR, logvrms, a0, siga0, b0, sigb0
+  ; to switch between sixlin and linmix_err: switch the text output block below, switch the line plotting
 
   corr0 = (r_correlate(logR[pick_ind], logvrms[pick_ind]))
   print, '******************************************************'
@@ -211,6 +212,10 @@ endif
 	  slope_A0[2]
   print, 'ZP OF LOG(R) VS. LOG(VRMS):', zp_A0[1], '+/-', $
 	  zp_A0[2]
+  ; print, 'SLOPE OF LOG(R) VS. LOG(VRMS):', b0[0], '+/-', $
+  ;   sigb0[0]
+  ; print, 'ZP OF LOG(R) VS. LOG(VRMS):', a0[0], '+/-', $
+  ;   siga0[0]
   print, 'SPEARMAN RANK CORRELATION COEFFICIENT:', corr0
   ; print, 'check if it is using default values ', slope_A0[0]
   print, '******************************************************'

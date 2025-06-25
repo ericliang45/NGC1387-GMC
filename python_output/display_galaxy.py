@@ -262,7 +262,7 @@ scaling = np.array([ 0., 0.46412891, -0.        , -0.        ,  0.21486593,  0.3
         0.20996302,  0.10408077, -0.        ,  0.        ])
 
 plotter.range_spec = 100 # showing v_sys pm this value
-_ = plotter.make_spec(pdf=True,fits=False,update_v=False,scaling=scaling, dialation=40) 
+_ = plotter.make_spec(pdf=True,fits=True,update_v=False,scaling=scaling, dialation=40) 
 # dialation=40 with mask, 254.502 +- 2.541 Jy km/s
 # v_mean (mask applied): 1286.416 +- 0.442 km/s
 
