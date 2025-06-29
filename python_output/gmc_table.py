@@ -208,10 +208,10 @@ with open(out_short, 'w') as file_short:
         file_short.write('        \\hline\n')
 
         header_short = '        ID & RA & Dec. & $V_\\mathrm{bc}$ & $R_\\mathrm{c}$ & $\\sigma_\\mathrm{obs,los}$ & $L_\\mathrm{CO(2-1)}$ & $M_\\mathrm{gas}$ & $T_\\mathrm{max}$ & $\\omega_\\mathrm{obs}$ & $\\phi_\\mathrm{rot}$ & $R_\\mathrm{gal}$\\\\\n'
-        header_full = '# ID, RA, Dec., $V_\\mathrm{bc}$, $R_\\mathrm{c}$, $\\sigma_\\mathrm{obs,los}$, $L_\\mathrm{CO(2-1)}$, $M_\\mathrm{gas}$, $T_\\mathrm{max}$, $\\omega_\\mathrm{obs}$, $\\phi_\\mathrm{rot}$, $R_\\mathrm{gal}$\n'
+        header_full = '# ID, RA, Dec., V_bc, R_c, sigma_obs,los, L_CO(2-1), M_gas, T_max, omega_obs, phi_rot, R_gal\n'
 
         unit_short = '         & (h:m:s) & ($\\degr:\\arcmin:\\arcsec$) & (km~s$^{-1}$) & (pc) & (km~s$^{-1}$) & ($10^4$~K~km~s$^{-1}$~pc$^2$) & ($10^5$~M$_\odot$) & (K) & (km~s$^{-1}$~pc$^{-1}$) & (degree) & (pc)\\\\\n        \\hline\n'
-        unit_full = '# , (h:m:s), ($\\degr:\\arcmin:\\arcsec$), (km~s$^{-1}$), (pc), (km~s$^{-1}$), ($10^4$~K~km~s$^{-1}$~pc$^2$), ($10^5$~M$_\odot$), (K), (km~s$^{-1}$~pc$^{-1}$), (degree), (pc)\n'
+        unit_full = '# , (h:m:s), (degree:arcmin:arcsec), (km s^-1), (pc), (km s^-1), (10^4 K km s^-1 pc^2), (10^5 M_\odot), (K), (km s^-1 pc^-1), (degree), (pc)\n'
 
         file_short.write(header_short + unit_short)
         file_full.write(header_full + unit_full)
