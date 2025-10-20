@@ -149,7 +149,6 @@ plt.xlabel(r'RA - RA$\mathrm{_{centre}}$ (arcsec)',fontsize=15)
 plt.ylabel(r'Dec. - Dec.$\mathrm{_{centre}}$ (arcsec)',fontsize=15)
 ax1.tick_params(axis='y', which='both', right=False, ); ax1.tick_params(axis='x', which='both', top=False )
 secax2 = ax1.secondary_xaxis('top', functions=(ang2pctrans, ang2pctrans_inv))
-secax2.set_xticklabels([])
 secax = ax1.secondary_yaxis('right', functions=(ang2pctrans, ang2pctrans_inv))
 secax.set_ylabel(r'Dec. - Dec.$\mathrm{_{centre}}$ (pc)',fontsize=15,rotation=270,labelpad=20) # edited by Eric
 
@@ -161,8 +160,13 @@ scalebar(ax1,)
 plt.text(11,10.4,'$HST$',fontsize=11)
 plt.text(11,9.2,'ALMA CO(2-1)',color='purple',fontsize=11)
 
+toggle this to change between paper/talk versions
+secax2.set_xticklabels([]) 
 plt.savefig('/Users/ericliang/n1387/work_pub/plot/hst_lower.pdf') # and hst_lower-original_kernel.pdf and other colours
-plt.show()
+
+# secax2.set_xlabel(r'RA - RA$\mathrm{_{centre}}$ (pc)',fontsize=15)
+# plt.savefig('/Users/ericliang/Desktop/hst_talk.pdf')
+# plt.show()
 
 
 

@@ -5,7 +5,7 @@ import subprocess
 from scipy.io import readsav
 from scipy.stats import mode
 
-muse = readsav('FCC184_MUSE_gas_measurements.sav',python_dict=True,verbose=True)
+muse = readsav('/Users/ericliang/Desktop/project-NGC1387/Fornax-and-MUSE/muse/FCC184_MUSE_gas_measurements-from_Marc.sav',python_dict=True,verbose=True)
 bpt = muse['bpt_class']
 gas = np.array(muse['oabundance_d16'])
 gas[~np.isfinite(gas)] = 0
@@ -82,12 +82,13 @@ plt.show()
 
 
 
-plt.figure()
+plt.figure(figsize=(3,3))
 plt.imshow(np.log10(ha_corrected_2d), vmin=3.3,vmax=4.3, extent=[-50,50,-50,50])
 plt.xlim(-10,10);plt.ylim(-10,10)
 cb = plt.colorbar()
-cb.set_label(r'log(Corrected Ha flux / 10$^{-20}$ erg s$^{-1}$ cm$^{-2}$)',rotation=270,labelpad=20)
+cb.set_label(r'log(Ha flux / 10$^{-20}$ erg s$^{-1}$ cm$^{-2}$)',rotation=270,labelpad=20)
 # plt.title('Median metallicity (Dopita+16): %.2f' %np.median(gas_2d[gas_2d>0]))
 plt.xlabel('RA offset (arcsec)')
 plt.ylabel('Dec offset (arcsec)')
+plt.savefig('/Users/ericliang/Desktop/Ha.pdf')
 plt.show()
