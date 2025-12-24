@@ -385,14 +385,14 @@ endif
   ;   plot larson's relation for MW disc
   x_MW = findgen(1e4)/1e4*(xmax-xmin)+xmin
   y_MW=alog10(0.72)+0.5*x_MW
-  oplot, x_MW, y_MW, linestyle=1, thick=5.
+  oplot, x_MW, y_MW, linestyle=1, thick=10.
   ; cgoPlot, x_MW, y_MW, linestyle=1, thick=5. ; workaround, using thick=5, linestyle=1
 
   ;   plot larson's relation for MW Center (Kauffmann et al. 2017)
   x_MW = findgen(1e4)/1e4*(xmax-xmin)+xmin
   y_MW=alog10(5.5)+0.66*x_MW
   ; oplot, x_MW, y_MW, linestyle=1, thick=6.; original
-  cgoplot, x_MW, y_MW, linestyle=1, thick=5., color='Orange' ; , using thick=6.
+  cgoplot, x_MW, y_MW, linestyle=1, thick=10., color='Orange' ; , using thick=6.
 
   ; ;   plot larson's relation for NGC4429 (Liu et al. 2021)
   ; x_MW = findgen(1e4)/1e4*(xmax-xmin)+xmin
@@ -404,7 +404,7 @@ endif
   xline = findgen(1e4)/1e4*(xmax-xmin)+xmin
   yline = zp_A0[1] + slope_A0[1]*xline
   ; yline = a0[0] + b0[0]*xline
-  oplot, xline, yline, linestyle=0, thick=5.
+  oplot, xline, yline, linestyle=0, thick=10.
 
 
   cglegend,title=['NGC1387','MW disc','MW CMZ'], $ ; ,'NGC4429' ;psym=9, symsize=1.5, length=0.0,
@@ -454,19 +454,19 @@ endif
   ;   plot larson's relation for MW
   x_MW = findgen(1e4)/1e4*(xmax-xmin)+xmin
   y_MW = alog10(25.)+2.5*x_MW
-  oplot, x_MW, y_MW, linestyle=1, thick=5.
+  oplot, x_MW, y_MW, linestyle=1, thick=10.
   ; cgoplot, x_MW, y_MW, linestyle=1, thick=5.
 
   ;   plot larson's relation for MW Center (Li et al. 2020 apj 897 89)
   x_MW = findgen(1e4)/1e4*(xmax-xmin)+xmin
   y_MW=alog10(1000./alpha_co)+3.*x_MW
-  cgoplot, x_MW, y_MW, linestyle=1, thick=5., color='Orange'
+  cgoplot, x_MW, y_MW, linestyle=1, thick=10., color='Orange'
 
   ;   plot fitted log(R) vs log(Lum) relation
   xline = findgen(1e4)/1e4*(xmax-xmin)+xmin
   yline = zp_A1[1]+slope_A1[1]*xline
   ; yline = a1[0]+b1[0]*xline
-  oplot, xline, yline, linestyle=0, thick=5. ; used 3
+  oplot, xline, yline, linestyle=0, thick=10. ; used 3
 
 
 
@@ -519,14 +519,14 @@ endif
   ;   plot larson's relation for MW
   x_MW = findgen(1e4)/1e4*(xmax-xmin)+xmin
   y_MW = alog10(130.)+5.*x_MW
-  oplot, x_MW, y_MW, linestyle=1, thick=5. ; used 3
+  oplot, x_MW, y_MW, linestyle=1, thick=10. ; used 3
   ; cgoplot, x_MW, y_MW, linestyle=1, thick=5.
 
   ;   plot fitted log(vrms) vs log(Lum) relation
   xline = findgen(1e5)/1e5*(xmax-xmin)+xmin
   yline = zp_A2[1]+slope_A2[1]*xline ; linmix_error
   ; yline = a2[0]+b2[0]*xline ; sixlin
-  oplot, xline, yline, linestyle=0, thick=5. ; used 3
+  oplot, xline, yline, linestyle=0, thick=10. ; used 3
   ; print, [a2,b2]
 
 cglegend,title=[title], psym=[16,16,16], $
